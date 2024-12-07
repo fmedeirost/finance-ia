@@ -59,7 +59,8 @@ const AiReportButton = ({ month, hasPremiumPlan }: AiReportButtonProps) => {
               <DialogTitle>Relatório IA</DialogTitle>
               <DialogDescription>
                 Use inteligência artificial para gerar um relatório com insights
-                sobre suas finanças.
+                sobre suas finanças e um demonstrativo de como declarar imposto
+                de renda.
               </DialogDescription>
             </DialogHeader>
             <ScrollArea className="prose max-h-[450px] text-white prose-h3:text-white prose-h4:text-white prose-strong:text-white">
