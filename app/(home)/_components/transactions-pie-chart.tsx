@@ -10,11 +10,10 @@ import {
   ChartTooltipContent,
 } from "@/app/_components/ui/chart";
 import { TransactionType } from "@prisma/client";
-import { TransactionPercentagePerType } from "@/app/_data/get-dashboard/types"; // Verifique a definição desse tipo
+import { TransactionPercentagePerType } from "@/app/_data/get-dashboard/types";
 import { PiggyBankIcon, TrendingDownIcon, TrendingUpIcon } from "lucide-react";
 import PercentageItem from "./percentage-item";
 
-// Configuração dos gráficos
 const chartConfig = {
   [TransactionType.INVESTMENT]: {
     label: "Investido",
@@ -43,22 +42,21 @@ const TransactionsPieChart = ({
   expensesTotal,
   typesPercentage,
 }: TransactionsPieChartProps) => {
-  // Dados para o gráfico
   const chartData = [
     {
       type: TransactionType.DEPOSIT,
       amount: depositsTotal,
-      fill: chartConfig[TransactionType.DEPOSIT].color, // Utilizando a cor configurada
+      fill: chartConfig[TransactionType.DEPOSIT].color,
     },
     {
       type: TransactionType.EXPENSE,
       amount: expensesTotal,
-      fill: chartConfig[TransactionType.EXPENSE].color, // Utilizando a cor configurada
+      fill: chartConfig[TransactionType.EXPENSE].color,
     },
     {
       type: TransactionType.INVESTMENT,
       amount: investmentsTotal,
-      fill: chartConfig[TransactionType.INVESTMENT].color, // Utilizando a cor configurada
+      fill: chartConfig[TransactionType.INVESTMENT].color,
     },
   ];
 
