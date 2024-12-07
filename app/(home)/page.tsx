@@ -22,13 +22,30 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
   if (!userId) {
     redirect("/login");
   }
+
   const monthIsInvalid = !month || !isMatch(month, "MM");
   if (monthIsInvalid) {
     redirect(`?month=${new Date().getMonth() + 1}`);
   }
-  const dashboard = await getDashboard(month);
-  const userCanAddTransaction = await canUserAddTransaction();
+
+  let dashboard;
+  try {
+    dashboard = await getDashboard(month);
+  } catch (error) {
+    console.error("Error fetching dashboard data", error);
+    redirect("/error"); // Você pode redirecionar para uma página de erro, se necessário
+  }
+
+  let userCanAddTransaction;
+  try {
+    userCanAddTransaction = await canUserAddTransaction();
+  } catch (error) {
+    console.error("Error fetching user permissions", error);
+    userCanAddTransaction = false; // Defina um valor padrão caso falhe
+  }
+
   const user = await clerkClient().users.getUser(userId);
+
   return (
     <>
       <Navbar />
