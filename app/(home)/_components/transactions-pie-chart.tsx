@@ -10,10 +10,11 @@ import {
   ChartTooltipContent,
 } from "@/app/_components/ui/chart";
 import { TransactionType } from "@prisma/client";
-import { TransactionPercentagePerType } from "@/app/_data/get-dashboard/types";
+import { TransactionPercentagePerType } from "@/app/_data/get-dashboard/types"; // Verifique a definição desse tipo
 import { PiggyBankIcon, TrendingDownIcon, TrendingUpIcon } from "lucide-react";
 import PercentageItem from "./percentage-item";
 
+// Configuração dos gráficos
 const chartConfig = {
   [TransactionType.INVESTMENT]: {
     label: "Investido",
@@ -42,23 +43,25 @@ const TransactionsPieChart = ({
   expensesTotal,
   typesPercentage,
 }: TransactionsPieChartProps) => {
+  // Dados para o gráfico
   const chartData = [
     {
       type: TransactionType.DEPOSIT,
       amount: depositsTotal,
-      fill: "#55B02E",
+      fill: chartConfig[TransactionType.DEPOSIT].color, // Utilizando a cor configurada
     },
     {
       type: TransactionType.EXPENSE,
       amount: expensesTotal,
-      fill: "#E93030",
+      fill: chartConfig[TransactionType.EXPENSE].color, // Utilizando a cor configurada
     },
     {
       type: TransactionType.INVESTMENT,
       amount: investmentsTotal,
-      fill: "#FFFFFF",
+      fill: chartConfig[TransactionType.INVESTMENT].color, // Utilizando a cor configurada
     },
   ];
+
   return (
     <Card className="flex flex-col p-6">
       <CardContent className="flex-1 pb-0">
@@ -84,17 +87,17 @@ const TransactionsPieChart = ({
           <PercentageItem
             icon={<TrendingUpIcon size={16} className="text-primary" />}
             title="Receita"
-            value={typesPercentage[TransactionType.DEPOSIT]}
+            value={typesPercentage[TransactionType.DEPOSIT] || 0}
           />
           <PercentageItem
             icon={<TrendingDownIcon size={16} className="text-red-500" />}
             title="Despesas"
-            value={typesPercentage[TransactionType.EXPENSE]}
+            value={typesPercentage[TransactionType.EXPENSE] || 0}
           />
           <PercentageItem
             icon={<PiggyBankIcon size={16} />}
             title="Investido"
-            value={typesPercentage[TransactionType.INVESTMENT]}
+            value={typesPercentage[TransactionType.INVESTMENT] || 0}
           />
         </div>
       </CardContent>
